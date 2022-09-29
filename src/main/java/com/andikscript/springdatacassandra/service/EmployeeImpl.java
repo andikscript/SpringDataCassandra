@@ -6,6 +6,8 @@ import com.fasterxml.uuid.Generators;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class EmployeeImpl implements EmployeeService {
@@ -25,5 +27,39 @@ public class EmployeeImpl implements EmployeeService {
     @Override
     public List<Employee> getALl() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public Optional<Employee> getById(UUID id) {
+        if (!employeeRepository.findById(id).isPresent()) {
+            return null;
+        }
+
+        return employeeRepository.findById(id);
+    }
+
+    @Override
+    public String updateEmployee(UUID id, Employee employee) {
+        if (!employeeRepository.findById(id).isPresent()) {
+            return "NOT FOUND";
+        }
+
+        Employee employeeSecond = employeeRepository.findById(id).get();
+        employeeSecond.setName(employee.getName());
+        employeeSecond.setSalary(employee.getSalary());
+        employeeRepository.save(employeeSecond);
+
+        return "Success";
+    }
+
+    @Override
+    public String deleteEmployee(UUID id) {
+        if (!employeeRepository.findById(id).isPresent()) {
+            return "NOT FOUND";
+        }
+
+        employeeRepository.deleteById(id);
+
+        return "Success";
     }
 }
