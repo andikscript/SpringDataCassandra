@@ -2,6 +2,7 @@ package com.andikscript.springdatacassandra.service;
 
 import com.andikscript.springdatacassandra.model.Employee;
 import com.andikscript.springdatacassandra.repository.EmployeeRepository;
+import com.fasterxml.uuid.Generators;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class EmployeeImpl implements EmployeeService {
 
     @Override
     public void createEmmployee(Employee employee) {
+        employee.setId(Generators.timeBasedGenerator().generate());
         employeeRepository.save(employee);
     }
 
