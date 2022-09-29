@@ -4,7 +4,6 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import javax.annotation.Generated;
 import java.util.UUID;
 
 @Table("employee")
@@ -12,7 +11,7 @@ public class Employee {
 
     @PrimaryKey
     @Column(value = "id")
-    private Integer id;
+    private UUID id;
 
     @Column(value = "name")
     private String name;
@@ -20,11 +19,11 @@ public class Employee {
     @Column(value = "salary")
     private Integer salary;
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
